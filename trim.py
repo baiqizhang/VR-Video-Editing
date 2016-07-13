@@ -1,7 +1,9 @@
-import numpy as np
+#!/usr/bin/python
+
+# import numpy as np
 import cv2
 
-visualize = True#False
+visualize = False
 
 logo = cv2.imread('data/circle.png')
 

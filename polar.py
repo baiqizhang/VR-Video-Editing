@@ -1,4 +1,6 @@
-import numpy as np
+#!/usr/bin/python
+
+# import numpy as np
 import cv2
 
 logo = cv2.imread('data/circle.png')
