@@ -12,33 +12,28 @@
 //# endif
 
 //#include <opencv2/opencv.hpp>
-//#include <iostream>
 
 //cpp
+#include <iostream>
 # include <opencv/cv.h>
 # include <opencv/highgui.h>
 
 //c
 # include <stdio.h>
 # include <stdlib.h>
-#include <gnomonic-all.h>
+# include <gnomonic-all.h>
 # include <common-all.h>
+
+//#define VISUALIZE
 
 using namespace cv;
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    char * nriPath = "/Users/baiqizhang/Developer/Hacking/VR/data/equirectangular.jpg";
-    char * nroPath = "/Users/baiqizhang/Developer/Hacking/VR/data/equirectangular_out.jpg";
-    printf("%s\n",nriPath);
-    
     /* Rotation angles variables */
     double nrAzim = 0.0;
     double nrElev = -30.0;
     double nrRoll = 0.0;
-    
-    /* Exportation options variables */
-    int nrOption = -1;
     
     /* Parallel processing variables */
     int nrThread = 1;
@@ -46,45 +41,67 @@ int main(int argc, const char * argv[]) {
     /* Interpolation descriptor variables */
     char * nrMethod = NULL;
     
-    /*
-     VideoCapture cap(0); // open the default camera
-     if(!cap.isOpened())  // check if we succeeded
-     return -1;
-     */
     
-    IplImage * nriImage = cvLoadImage( nriPath, CV_LOAD_IMAGE_UNCHANGED );
-    IplImage * nroImage = NULL;
+    VideoCapture cap("/Users/baiqizhang/Developer/Hacking/VR/data/shake1.mp4"); // open the default camera
+    if(!cap.isOpened())  // check if we succeeded
+        return -1;
     
-    nroImage = cvCreateImage( cvSize( nriImage->width, nriImage->height ), IPL_DEPTH_8U , nriImage->nChannels );
-    /* Verify allocation creation */
-    if ( nroImage != NULL ) {
+    Size inputSize = Size(cap.get(CV_CAP_PROP_FRAME_WIDTH),cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+    VideoWriter writer("/Users/baiqizhang/Developer/Hacking/VR/data/shake1_out.mp4",CV_FOURCC('X','2','6','4'),cap.get(CV_CAP_PROP_FPS),inputSize);
+    
+#ifdef VISUALIZE
+    namedWindow("input",CV_WINDOW_NORMAL);
+    namedWindow("output",CV_WINDOW_NORMAL);
+#endif
+    
+    for(int frames = 0;frames<10;frames++)
+    {
+        cout << frames << endl;
         
-        /* Apply equirectangular transform */
-        lg_transform_rotatep(
-                             
-                             ( inter_C8_t * ) nriImage->imageData,
-                             ( inter_C8_t * ) nroImage->imageData,
-                             nriImage->width,
-                             nriImage->height,
-                             nriImage->nChannels,
-                             nrAzim * ( LG_PI / 180.0 ),
-                             nrElev * ( LG_PI / 180.0 ),
-                             nrRoll * ( LG_PI / 180.0 ),
-                             lc_method( nrMethod == NULL ? "bicubicf" : nrMethod ),
-                             nrThread
-                             
-                             );
+        Mat frame;
+        cap >> frame;
         
-        /* Export output image */
-        if ( lc_imwrite( nroPath, nroImage, nrOption ) == 0 ) {
+        IplImage cFrame = frame;
+        
+        IplImage * nriImage = &cFrame;//cvLoadImage( nriPath, CV_LOAD_IMAGE_UNCHANGED );
+        IplImage * nroImage = NULL;
+        
+        nroImage = cvCreateImage( cvSize( nriImage->width, nriImage->height ), IPL_DEPTH_8U , nriImage->nChannels );
+        /* Verify allocation creation */
+        if ( nroImage != NULL ) {
             
-            /* Display message */
-            fprintf( LC_ERR, "Error : Unable to write output image\n" );
+            /* Apply equirectangular transform */
+            lg_transform_rotatep(
+                                 
+                                 ( inter_C8_t * ) nriImage->imageData,
+                                 ( inter_C8_t * ) nroImage->imageData,
+                                 nriImage->width,
+                                 nriImage->height,
+                                 nriImage->nChannels,
+                                 nrAzim * ( LG_PI / 180.0 ),
+                                 nrElev * ( LG_PI / 180.0 ),
+                                 nrRoll * ( LG_PI / 180.0 ),
+                                 lc_method( nrMethod == NULL ? "bicubicf" : nrMethod ),
+                                 nrThread
+                                 );
             
+            Mat output(nroImage );
+            writer << output;
+            
+            
+#ifdef VISUALIZE
+            imshow("input", frame);
+            imshow("output", output);
+            if(waitKey(30) >= 0)
+                break;
+#endif
+            
+            /* Release image memory */
+            cvReleaseImage( & nroImage );
         }
+
         
-        /* Release image memory */
-        cvReleaseImage( & nroImage );
+        
     }
 
     return 0;

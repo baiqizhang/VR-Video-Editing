@@ -10,3 +10,6 @@ make build OPENMP=false
 
 ln -s /opt/X11/lib/libX11.dylib /usr/local/lib/libX11.dylib
 ln -s /opt/X11/include/X11 /usr/local/include/X11
+
+
+ffmpeg required for FOURCC(H264)
