@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97551EC31D41DCB200277556 /* stablization_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97551EC11D41DCB200277556 /* stablization_test.cpp */; };
+		97551EC41D41DCB200277556 /* videostab.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97551EC21D41DCB200277556 /* videostab.cpp */; };
 		979D5AD61D385A0C00589C91 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 979D5AD51D385A0C00589C91 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		97551EC01D41DCB200277556 /* videostab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videostab.h; sourceTree = "<group>"; };
+		97551EC11D41DCB200277556 /* stablization_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stablization_test.cpp; sourceTree = "<group>"; };
+		97551EC21D41DCB200277556 /* videostab.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videostab.cpp; sourceTree = "<group>"; };
+		97551EC51D429AA400277556 /* liblpsolve55.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblpsolve55.dylib; path = ../library/lp_solve_5.5/lpsolve55/bin/osx64/liblpsolve55.dylib; sourceTree = "<group>"; };
 		979D5AD21D385A0C00589C91 /* VideoStabilization */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = VideoStabilization; sourceTree = BUILT_PRODUCTS_DIR; };
 		979D5AD51D385A0C00589C91 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -41,6 +47,7 @@
 		979D5AC91D385A0C00589C91 = {
 			isa = PBXGroup;
 			children = (
+				97551EC51D429AA400277556 /* liblpsolve55.dylib */,
 				979D5AD41D385A0C00589C91 /* VideoStabilization */,
 				979D5AD31D385A0C00589C91 /* Products */,
 			);
@@ -57,6 +64,9 @@
 		979D5AD41D385A0C00589C91 /* VideoStabilization */ = {
 			isa = PBXGroup;
 			children = (
+				97551EC01D41DCB200277556 /* videostab.h */,
+				97551EC11D41DCB200277556 /* stablization_test.cpp */,
+				97551EC21D41DCB200277556 /* videostab.cpp */,
 				979D5AD51D385A0C00589C91 /* main.cpp */,
 			);
 			path = VideoStabilization;
@@ -119,6 +129,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				979D5AD61D385A0C00589C91 /* main.cpp in Sources */,
+				97551EC41D41DCB200277556 /* videostab.cpp in Sources */,
+				97551EC31D41DCB200277556 /* stablization_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,34 +226,28 @@
 					"\"$(SRCROOT)/../library/norama-suite/lib/libgnomonic/lib/libinter/src\"",
 					"\"$(SRCROOT)/../library/norama-suite/lib/libgnomonic/src\"",
 					"\"$(SRCROOT)/../library/norama-suite/lib/libcommon/src\"",
+					"\"$(SRCROOT)/../library/lp_solve_5.5\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					"\"$(SRCROOT)/../library/norama-suite/lib/libgnomonic/bin\"",
 					"\"$(SRCROOT)/../library/norama-suite/lib/libgnomonic/lib/libinter/bin\"",
 					"\"$(SRCROOT)/../library/norama-suite/lib/libcommon/bin\"",
+					"\"$(SRCROOT)/../library/lp_solve_5.5/lpsolve55/bin/osx64\"",
 				);
 				OTHER_LDFLAGS = (
-					"-lopencv_calib3d",
 					"-lopencv_core",
 					"-lopencv_features2d",
-					"-lopencv_flann",
 					"-lopencv_highgui",
-					"-lopencv_imgcodecs",
 					"-lopencv_imgproc",
-					"-lopencv_ml",
 					"-lopencv_objdetect",
-					"-lopencv_photo",
-					"-lopencv_shape",
 					"-lopencv_stitching",
-					"-lopencv_superres",
-					"-lopencv_ts",
 					"-lopencv_video",
-					"-lopencv_videoio",
 					"-lopencv_videostab",
 					"-linter",
 					"-lgnomonic",
 					"-lcommon",
+					"-llpsolve55",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -255,34 +261,28 @@
 					"\"$(SRCROOT)/../library/norama-suite/lib/libgnomonic/lib/libinter/src\"",
 					"\"$(SRCROOT)/../library/norama-suite/lib/libgnomonic/src\"",
 					"\"$(SRCROOT)/../library/norama-suite/lib/libcommon/src\"",
+					"\"$(SRCROOT)/../library/lp_solve_5.5\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					"\"$(SRCROOT)/../library/norama-suite/lib/libgnomonic/bin\"",
 					"\"$(SRCROOT)/../library/norama-suite/lib/libgnomonic/lib/libinter/bin\"",
 					"\"$(SRCROOT)/../library/norama-suite/lib/libcommon/bin\"",
+					"\"$(SRCROOT)/../library/lp_solve_5.5/lpsolve55/bin/osx64\"",
 				);
 				OTHER_LDFLAGS = (
-					"-lopencv_calib3d",
 					"-lopencv_core",
 					"-lopencv_features2d",
-					"-lopencv_flann",
 					"-lopencv_highgui",
-					"-lopencv_imgcodecs",
 					"-lopencv_imgproc",
-					"-lopencv_ml",
 					"-lopencv_objdetect",
-					"-lopencv_photo",
-					"-lopencv_shape",
 					"-lopencv_stitching",
-					"-lopencv_superres",
-					"-lopencv_ts",
 					"-lopencv_video",
-					"-lopencv_videoio",
 					"-lopencv_videostab",
 					"-linter",
 					"-lgnomonic",
 					"-lcommon",
+					"-llpsolve55",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -307,6 +307,7 @@
 				979D5ADB1D385A0C00589C91 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -29,7 +29,7 @@
 using namespace cv;
 using namespace std;
 
-int main(int argc, const char * argv[]) {
+int main_rotate(int argc, const char * argv[]) {
     /* Rotation angles variables */
     double nrAzim = 0.0;
     double nrElev = -30.0;
